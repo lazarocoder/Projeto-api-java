@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiParam;
 
 @Api(value = "Pessoas", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
-@RequestMapping(value = "pessoas")
+@RequestMapping(value = "pessoas", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 //@CrossOrigin(origins = "http://localhost:4200")
 public class PessoasController extends GenericController{
 
@@ -41,7 +41,7 @@ public class PessoasController extends GenericController{
 
 	@ApiOperation(value = "Cadastrar pessoa.")
 	@PostMapping
-	public ResponseEntity<Pessoa> salvar(@ApiParam(value = "Pessoa") @RequestBody @Valid Pessoa pessoa) {
+	public ResponseEntity<Pessoa> salvar(@ApiParam(value = "Pessoa") Pessoa pessoa) {
 		pessoa = pessoasBusiness.salvarOuAtualizar(pessoa);
 		return ResponseEntity.ok(pessoa);
 	}

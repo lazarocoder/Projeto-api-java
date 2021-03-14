@@ -32,7 +32,6 @@ import br.com.desafio.models.Pessoa;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureMockMvc
-@TestMethodOrder(MethodOrderer.Alphanumeric.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PessoasTestes {
 	@Autowired
