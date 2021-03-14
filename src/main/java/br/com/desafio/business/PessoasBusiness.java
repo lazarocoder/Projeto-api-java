@@ -19,13 +19,5 @@ public class PessoasBusiness extends GenericBusiness<Pessoa, Long> {
 		super(repository);
 		this.repository = repository;
 	}
-
-	public List<Pessoa> listarTodosPorSetorId(Long id){
-		return repository.findBySetorId(id);
-	}
-	
-	public List<Pessoa> listarTodosPorSetorNome(String nome){
-		return repository.findBySetorNome(nome);
-	}
 	
 }

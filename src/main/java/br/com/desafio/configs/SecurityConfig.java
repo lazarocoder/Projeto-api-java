@@ -22,7 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             "/resources/public/**",
             "/resources/static/**",
-            "/testeImagem/**"
+            "/testeImagem/**", 
+            "/source"
     };
 	
 	@Override
@@ -42,8 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.csrf().disable()
 		.authorizeRequests()
 		.antMatchers(AUTH_WHITELIST).permitAll()
-		.antMatchers("/pessoas/**").hasRole("ADMIN")
-		.antMatchers("/setor/**").hasAnyRole("USER","ADMIN")
+		.antMatchers("/pessoas/**").hasAnyRole("USER","ADMIN")
+//		.antMatchers("/setor/**").hasAnyRole("USER","ADMIN")
 		.anyRequest().authenticated()
 	    .and().httpBasic();
 	}
