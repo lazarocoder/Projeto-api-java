@@ -25,9 +25,8 @@ import io.swagger.annotations.ApiParam;
 
 @Api(value = "Pessoas", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
-@RequestMapping(value = "pessoas", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//@CrossOrigin(origins = "http://localhost:4200")
-public class PessoasController extends GenericController{
+@RequestMapping(value = "pessoas")
+public class PessoasController extends GenericController {
 
 	@Autowired
 	private PessoasBusiness pessoasBusiness;
@@ -39,33 +38,36 @@ public class PessoasController extends GenericController{
 		return ResponseEntity.ok(lista);
 	}
 
-	@ApiOperation(value = "Cadastrar pessoa.")
+	@ApiOperation(value = "Recuperar cadastro de pessoa.")
+	@GetMapping("/{id}")
+	public ResponseEntity<Pessoa> recuperarPorId(
+			@ApiParam(value = "id", example = "1", type = "number", required = true) @PathVariable("id") Long id) {
+		Pessoa pessoa = pessoasBusiness.recuperarPorId(id);
+		return ResponseEntity.ok(pessoa);
+	}
+
+	@ApiOperation(value = "Cadastrar pessoa.")	
 	@PostMapping
-	public ResponseEntity<Pessoa> salvar(@ApiParam(value = "Pessoa") Pessoa pessoa) {
+	public ResponseEntity<Pessoa> salvar
+	(@ApiParam(value = "Pessoa") @RequestBody @Valid Pessoa pessoa) {
 		pessoa = pessoasBusiness.salvarOuAtualizar(pessoa);
 		return ResponseEntity.ok(pessoa);
 	}
 
 	@ApiOperation(value = "Alterar cadastro de pessoa.")
 	@PutMapping("/{id}")
-	public ResponseEntity<Pessoa> atualizar(@PathVariable Long id, @ApiParam(value = "Pessoa") @RequestBody @Valid Pessoa pessoa) {
+	public ResponseEntity<Pessoa> atualizar(@PathVariable Long id,
+			@ApiParam(value = "Pessoa") @RequestBody @Valid Pessoa pessoa) {
 		pessoa = pessoasBusiness.salvarOuAtualizar(pessoa);
 		return ResponseEntity.ok(pessoa);
 	}
 
 	@ApiOperation(value = "Deletar cadastro de pessoa.")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Long> deletar(@ApiParam(value = "id", example = "1", type = "number", required = true) @PathVariable Long id) {
+	public ResponseEntity<Long> deletar(
+			@ApiParam(value = "id", example = "1", type = "number", required = true) @PathVariable Long id) {
 		pessoasBusiness.deletar(id);
 		return ResponseEntity.ok(id);
-	}
-	
-	@ApiOperation(value = "Recuperar cadastro de pessoa.")
-	@GetMapping("/{id}")
-	public ResponseEntity<Pessoa> bucar(@ApiParam(value = "id", example = "1", type = "number", required = true) @PathVariable Long id) {
-		//pessoasBusiness.recuperarPorId(id);
-		Pessoa pessoa = pessoasBusiness.recuperarPorId(id);
-		return ResponseEntity.ok(pessoa);
 	}
 
 }
