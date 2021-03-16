@@ -8,5 +8,5 @@ VOLUME /tmp
 EXPOSE 8080
 RUN mkdir -p /app/ 
 RUN mkdir -p /app/logs/
-COPY --from=build /home/app/target/desafio-service-2.4.0.jar /app/app.jar
+COPY --from=build /home/app/target/desafio-service-1.0.0.jar /app/app.jar
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=container", "-jar", "/app/app.jar"]
